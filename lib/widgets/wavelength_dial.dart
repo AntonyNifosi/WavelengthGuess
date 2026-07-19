@@ -185,6 +185,49 @@ class WavelengthDialPainter extends CustomPainter {
     );
 
     // Ligne centrale de la cible retirée pour éviter la confusion avec l'aiguille.
+
+    // Affichage des points (2, 3, 4) dans chaque section
+    if (revealProgress > 0.3) {
+      final textAlpha = ((revealProgress - 0.3) / 0.7).clamp(0.0, 1.0);
+      final textDistance = radius * 0.80; // Placement des textes près du bord extérieur
+      
+      void drawPoints(int points, double angleOffset) {
+        final textPainter = TextPainter(
+          text: TextSpan(
+            text: points.toString(),
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: textAlpha * 0.9),
+              fontSize: max(12.0, radius * 0.055),
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          textDirection: TextDirection.ltr,
+        );
+        textPainter.layout();
+        
+        final angle = targetAngle + angleOffset;
+        final position = Offset(
+          center.dx + textDistance * cos(angle),
+          center.dy + textDistance * sin(angle),
+        );
+        
+        canvas.save();
+        canvas.translate(position.dx, position.dy);
+        // On pivote le texte pour qu'il soit perpendiculaire au rayon du cercle
+        canvas.rotate(angle + pi / 2);
+        textPainter.paint(canvas, Offset(-textPainter.width / 2, -textPainter.height / 2));
+        canvas.restore();
+      }
+
+      final rad8 = 8 * (pi / 180);
+      final rad15 = 15 * (pi / 180);
+
+      drawPoints(GameConstants.farPoints, -rad15);
+      drawPoints(GameConstants.farPoints, rad15);
+      drawPoints(GameConstants.closePoints, -rad8);
+      drawPoints(GameConstants.closePoints, rad8);
+      drawPoints(GameConstants.bullseyePoints, 0);
+    }
   }
 
   void _drawArcZone(
