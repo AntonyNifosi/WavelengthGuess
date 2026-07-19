@@ -20,6 +20,17 @@ class WavelengthApp extends StatelessWidget {
         title: 'Wavelength',
         debugShowCheckedModeBanner: false,
         theme: WavelengthTheme.darkTheme,
+        builder: (context, child) {
+          return Container(
+            color: Colors.black,
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: ClipRect(child: child),
+              ),
+            ),
+          );
+        },
         home: const _GameRouter(),
       ),
     );
