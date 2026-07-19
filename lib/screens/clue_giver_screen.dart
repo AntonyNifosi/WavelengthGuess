@@ -103,6 +103,7 @@ class _ClueGiverScreenState extends State<ClueGiverScreen>
                           targetPosition: game.targetPosition,
                           guessPosition: game.targetPosition,
                           showTarget: true,
+                          showNeedle: false,
                           interactive: false,
                         ),
                       ),

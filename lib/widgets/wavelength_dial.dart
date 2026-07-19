@@ -19,6 +19,9 @@ class WavelengthDialPainter extends CustomPainter {
   /// Si true, affiche la zone cible.
   final bool showTarget;
 
+  /// Si true, affiche l'aiguille.
+  final bool showNeedle;
+
   /// Progression de l'animation de révélation (0.0 → 1.0).
   final double revealProgress;
 
@@ -29,6 +32,7 @@ class WavelengthDialPainter extends CustomPainter {
     required this.targetPosition,
     required this.guessPosition,
     required this.showTarget,
+    this.showNeedle = true,
     this.revealProgress = 1.0,
     this.isDragging = false,
   });
@@ -45,7 +49,9 @@ class WavelengthDialPainter extends CustomPainter {
       _drawTargetZone(canvas, center, radius);
     }
 
-    _drawNeedle(canvas, center, radius);
+    if (showNeedle) {
+      _drawNeedle(canvas, center, radius);
+    }
     _drawCenterKnob(canvas, center);
   }
 
@@ -340,6 +346,7 @@ class WavelengthDialPainter extends CustomPainter {
     return oldDelegate.targetPosition != targetPosition ||
         oldDelegate.guessPosition != guessPosition ||
         oldDelegate.showTarget != showTarget ||
+        oldDelegate.showNeedle != showNeedle ||
         oldDelegate.revealProgress != revealProgress ||
         oldDelegate.isDragging != isDragging;
   }
@@ -356,6 +363,9 @@ class WavelengthDial extends StatefulWidget {
   /// Si true, affiche la zone cible.
   final bool showTarget;
 
+  /// Si true, affiche l'aiguille.
+  final bool showNeedle;
+
   /// Si true, l'aiguille est déplaçable.
   final bool interactive;
 
@@ -370,6 +380,7 @@ class WavelengthDial extends StatefulWidget {
     required this.targetPosition,
     required this.guessPosition,
     this.showTarget = false,
+    this.showNeedle = true,
     this.interactive = false,
     this.onGuessChanged,
     this.animateReveal = false,
@@ -493,6 +504,7 @@ class _WavelengthDialState extends State<WavelengthDial>
                     targetPosition: widget.targetPosition,
                     guessPosition: _currentGuess,
                     showTarget: widget.showTarget,
+                    showNeedle: widget.showNeedle,
                     revealProgress: _revealAnimation.value,
                     isDragging: _isDragging,
                   ),
