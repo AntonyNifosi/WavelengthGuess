@@ -184,26 +184,7 @@ class WavelengthDialPainter extends CustomPainter {
       WavelengthColors.bullseye.withValues(alpha: 0.7 * revealProgress),
     );
 
-    // Ligne centrale de la cible
-    if (revealProgress > 0.5) {
-      final linePaint = Paint()
-        ..color = WavelengthColors.bullseye
-            .withValues(alpha: (revealProgress - 0.5) * 2)
-        ..strokeWidth = 2.5
-        ..strokeCap = StrokeCap.round;
-
-      canvas.drawLine(
-        Offset(
-          center.dx + radius * 0.15 * cos(targetAngle),
-          center.dy + radius * 0.15 * sin(targetAngle),
-        ),
-        Offset(
-          center.dx + radius * 0.88 * cos(targetAngle),
-          center.dy + radius * 0.88 * sin(targetAngle),
-        ),
-        linePaint,
-      );
-    }
+    // Ligne centrale de la cible retirée pour éviter la confusion avec l'aiguille.
   }
 
   void _drawArcZone(
