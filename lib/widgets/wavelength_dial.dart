@@ -130,24 +130,6 @@ class WavelengthDialPainter extends CustomPainter {
       canvas.drawLine(start, end, tickPaint);
     }
 
-    // Tick central
-    final centerTickPaint = Paint()
-      ..color = WavelengthColors.textMuted.withValues(alpha: 0.5)
-      ..strokeWidth = 2;
-    final centerAngle = pi + 0.5 * pi; // 270° = haut
-    final innerR = radius * 0.88;
-    final outerR = radius * 0.97;
-    canvas.drawLine(
-      Offset(
-        center.dx + innerR * cos(centerAngle),
-        center.dy + innerR * sin(centerAngle),
-      ),
-      Offset(
-        center.dx + outerR * cos(centerAngle),
-        center.dy + outerR * sin(centerAngle),
-      ),
-      centerTickPaint,
-    );
   }
 
   /// Dessine la zone cible avec les 3 zones de score.
