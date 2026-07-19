@@ -35,8 +35,8 @@ class WavelengthDialPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height * 0.85);
-    final radius = size.width * 0.42;
+    final radius = min(size.width / 2, size.height) * 0.9;
+    final center = Offset(size.width / 2, (size.height + radius) / 2);
 
     _drawDialBackground(canvas, center, radius);
     _drawDialSegments(canvas, center, radius);
@@ -436,9 +436,10 @@ class _WavelengthDialState extends State<WavelengthDial>
   void _handlePanUpdate(DragUpdateDetails details, BoxConstraints constraints) {
     if (!widget.interactive) return;
 
+    final radius = min(constraints.maxWidth / 2, constraints.maxHeight) * 0.9;
     final center = Offset(
       constraints.maxWidth / 2,
-      constraints.maxHeight * 0.85,
+      (constraints.maxHeight + radius) / 2,
     );
 
     final dx = details.localPosition.dx - center.dx;
